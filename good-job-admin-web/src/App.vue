@@ -10,17 +10,21 @@
 
     <!-- 解决getStyle的问题 -->
     <!-- <router-link to="/" :class="getStyle('home')">首页</router-link> -->
-    <router-link to="/">首页</router-link>
-    <router-link to="/about">关于我</router-link>
-    <router-link to="/login">登录</router-link>
-  <!-- </div> -->
+    <myHeader />
+    <div>
+      <router-view/>
+    </div>
 
-  <router-view/>
+    <!-- <router-link to="/">首页</router-link>
+    <router-link to="/about">关于我</router-link>
+    <router-link to="/login">登录</router-link> -->
+  <!-- </div> -->
 </template>
 
 <script lang="ts">
 import { provide, reactive } from 'vue'
 import { MainParameter } from '@/models/mainParameter'
+import myHeader from '@/components/myHeader.vue'
 
 const mainParameter = reactive<MainParameter>({
   theme: 'light',
@@ -28,7 +32,13 @@ const mainParameter = reactive<MainParameter>({
 })
 
 provide('mainParameter', mainParameter)
-export default {}
+
+export default {
+  name: 'App',
+  components: {
+    myHeader
+  }
+}
 </script>
 
 <style>
