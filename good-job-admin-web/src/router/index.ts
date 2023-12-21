@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import axios from './'
+import { useStore } from 'vuex';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,12 +28,13 @@ const router = createRouter({
     {
       path: '/login',
       // 重定向
-      redirect: '/good-job-admin/login'
-    },
-    {
-      path: '/good-job-admin/login',
+      // redirect: '/good-job-admin/login'
       component: LoginView
     },
+    // {
+    //   path: '/good-job-admin/login',
+    //   component: LoginView
+    // },
     {
       path: '/about',
       name: 'about',
@@ -49,8 +51,20 @@ router.beforeEach((to, from, next) => {
  
   // 调用 next() 继续路由切换，调用 next({ path: '/login' }) 跳转到其他页面
   // debugger
-  
-  next()
+
+  // console.log(to)
+  if (to.fullPath === "noLogin") {
+    let store = useStore(); // 获取Vuex Store实例
+
+    // 获取公共的store数据进行判断
+    store.dispatch("login")
+
+
+    // console.log('hjk')
+    next("/login")
+  } else {
+    next()
+  }  
 })
 
 export default router

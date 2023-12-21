@@ -32,7 +32,7 @@ window.addEventListener('resize', () => {
       </nav>
     </div>
   </header> -->
-  <myHeader style="{height: '50px', width: '100%', margin: 'auto'}" />
+  <myHeader style="{height: '50px', width: '100%', margin: 'auto'}"/>
   
   <div :style="{height: height - 50 + 'px', width: '100%', margin: 'auto'}">
     <RouterView />

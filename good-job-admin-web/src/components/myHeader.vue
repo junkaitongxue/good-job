@@ -22,7 +22,7 @@ watch(() => mainParameter.theme, (value) => {
     <span class="logo">Good-Job</span>
     <router-link to="/" :class="getStyle('home')">首页</router-link>
     <router-link to="/about" :class="getStyle('about')">关于</router-link>
-    <router-link to="/login" :class="getStyle('login')">登录</router-link>
+    <router-link to="/login" class="logout">注销</router-link>
   </div>
 </template>
 
@@ -69,5 +69,8 @@ watch(() => mainParameter.theme, (value) => {
   color: #f2f2f2;
 }
 
+.logout {
+  margin: 0 50px 0px auto;
+}
 
 </style>
