@@ -19,7 +19,7 @@ watch(() => mainParameter.theme, (value) => {
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div :class="`header header-${theme}`">
-    <span class="logo">Good-Job</span>
+    <span class="logo"><b>Good</b>-Job</span>
     <router-link to="/" :class="getStyle('home')">首页</router-link>
     <router-link to="/about" :class="getStyle('about')">关于</router-link>
     <router-link to="/login" class="logout">注销</router-link>
@@ -30,7 +30,7 @@ watch(() => mainParameter.theme, (value) => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header {
-  height: 50px;
+  height: 40px;
   display: flex;
   align-items: center;
 }
@@ -42,6 +42,7 @@ watch(() => mainParameter.theme, (value) => {
 }
 
 .logo {
+  font-size: 24px;
   color: #42b983;
   margin: 0px 15px;
 }
@@ -50,10 +51,10 @@ watch(() => mainParameter.theme, (value) => {
   color: #fff;
   text-decoration: none;
   padding: 0 20px;
-  line-height: 50px;
+  line-height: 40px;
   text-align: center;
   font-size: 16px;
-  margin: 0px 50px;
+  margin: 0px 40px;
 }
 
 .menu-light {
@@ -70,7 +71,7 @@ watch(() => mainParameter.theme, (value) => {
 }
 
 .logout {
-  margin: 0 50px 0px auto;
+  margin: 0 40px 0px auto;
 }
 
 </style>
