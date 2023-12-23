@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
-import axios from './'
 import { useStore } from 'vuex';
 
 const router = createRouter({
@@ -41,7 +40,11 @@ router.beforeEach((to, from, next) => {
 
     // 获取公共的store数据进行判断
     store.dispatch("login")
-
+    ElNotification({
+      title: '登录成功',
+      message: response.msg,
+      type: 'error'
+    })
 
     // console.log('hjk')
     next("/login")

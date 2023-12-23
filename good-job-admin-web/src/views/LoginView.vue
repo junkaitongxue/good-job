@@ -37,6 +37,7 @@ import axios, { type IResponseData } from '@/utils/axios';
 import { useI18n } from 'vue-i18n'
 import {useRouter} from 'vue-router'
 import { ElNotification } from 'element-plus'
+import { useStore } from 'vuex';
 
 const { t } = useI18n()
 const loginInfo = {
@@ -45,9 +46,9 @@ const loginInfo = {
   ifRemember: false
 }
 const router = useRouter()
+const store = useStore()
 const handleSubmit = async () => {
   try {
-    // debugger
     const response = await axios.post<IResponseData<Object>>('/login', {
       data: loginInfo,
       headers: {
@@ -55,8 +56,14 @@ const handleSubmit = async () => {
       }})
     console.log(response)
     if (response.code === 200) {
+      store.dispatch('login', {useName: loginInfo.userName})
+      // store.commit('setLoginStatus', true)
+      // store.commit('setLoginState', {true, loginInfo.})
+      console.log(response)
+      console.log(response.content)
+      // window.sessionStorage.setItem('userInfo', JSON.stringify(data.value))
       router.push('/home')
-    } else{
+    } else {
       ElNotification({
         title: '登录失败',
         message: response.msg,
