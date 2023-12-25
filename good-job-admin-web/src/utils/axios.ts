@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
+import { ElMessage } from 'element-plus'
 
 export interface IResponseData <T> {
   code: number,
@@ -30,6 +31,19 @@ export class Axios {
   }
 
   private interceptorsResponse () {
+    this.instance.interceptors.response.use(
+      (response) => {
+          return response
+      },
+      (error) => {
+          if (error.code === 'ERR_NETWORK') {
+            ElMessage({
+              message: '系统异常， 请稍等重试',
+              type: 'error'
+            })
+          }
+      }
+    )
   }
 
   public request<T, D = T extends Blob ? Blob : IResponseData<T>>(config: AxiosRequestConfig) {

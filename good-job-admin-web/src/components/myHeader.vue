@@ -2,12 +2,16 @@
 
 <script lang="ts" setup>
 import type { MainParameter } from '@/models/mainParameter'
+import AuthUtils from '@/utils/AuthUtils';
 import { inject, ref, watch } from 'vue'
 
 const mainParameter = inject('mainParameter') as MainParameter
 const theme = ref(mainParameter.theme)
 const getStyle = (key: string): string => {
   return mainParameter.currentSelect === key ? `menu menu-${theme.value} selected` : `menu menu-${theme.value}`
+}
+const logout = () => {
+  AuthUtils.logout()
 }
 
 watch(() => mainParameter.theme, (value) => {
@@ -22,7 +26,9 @@ watch(() => mainParameter.theme, (value) => {
     <span class="logo"><b>Good</b>-Job</span>
     <router-link to="/" :class="getStyle('home')">首页</router-link>
     <router-link to="/about" :class="getStyle('about')">关于</router-link>
-    <router-link to="/login" class="logout">注销</router-link>
+    <router-link to="/login" class="logout">
+      <span @click="logout">注销</span>
+    </router-link>
   </div>
 </template>
 

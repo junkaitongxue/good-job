@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import { useStore } from 'vuex';
+import { ElNotification } from 'element-plus';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,20 +35,22 @@ router.beforeEach((to, from, next) => {
   // 调用 next() 继续路由切换，调用 next({ path: '/login' }) 跳转到其他页面
   // debugger
 
-  // console.log(to)
-  if (to.fullPath === "noLogin") {
+  console.log(to)
+  if (to.fullPath !== "/login") {
     let store = useStore(); // 获取Vuex Store实例
-
-    // 获取公共的store数据进行判断
-    store.dispatch("login")
-    ElNotification({
-      title: '登录成功',
-      message: response.msg,
-      type: 'error'
-    })
-
-    // console.log('hjk')
-    next("/login")
+    console.log(store)
+    if (!store.state.isLoggedIn) {
+      // 获取公共的store数据进行判断
+      store.dispatch("logout")
+      ElNotification({
+        title: '通知',
+        message: '未登录，请先登录',
+        type: 'warning'
+      })
+      next("/login")
+    } else{
+      next()
+    }
   } else {
     next()
   }  
