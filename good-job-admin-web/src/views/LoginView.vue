@@ -11,20 +11,21 @@
           <input type="text" name="userName" class="form-control" v-model="loginInfo.userName" :placeholder="$t('I18n.login_username_placeholder')" maxlength="18" >
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-          <div class="form-group has-feedback">
-            <input type="password" name="password" class="form-control" v-model="loginInfo.password" :placeholder="$t('I18n.login_password_placeholder')"  maxlength="18" >
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <div class="form-group has-feedback">
+          <input type="password" name="password" class="form-control" v-model="loginInfo.password" :placeholder="$t('I18n.login_password_placeholder')"  maxlength="18" >
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+              <label>
+                <input type="checkbox" name="ifRemember"  v-model="loginInfo.ifRemember"> &nbsp; {{$t('I18n.login_remember_me')}}
+              </label>
           </div>
-          <div class="row">
-          <div class="col-xs-8">
-            <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox" name="ifRemember"  v-model="loginInfo.ifRemember"> &nbsp; {{$t('I18n.login_remember_me')}}
-                </label>
-            </div>
-            </div><!-- /.col -->
-            <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">{{$t('I18n.login_btn')}}</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">{{$t('I18n.login_btn')}}</button>
+        </div><!-- /.col -->
+        <div class="col-xs-4">
+        
         </div>
         </div>
       </div>
@@ -58,11 +59,8 @@ const handleSubmit = async () => {
     console.log(response)
     if (response.code === 200) {
       store.dispatch('login', {useName: loginInfo.userName})
-      // store.commit('setLoginStatus', true)
-      // store.commit('setLoginState', {true, loginInfo.})
       console.log(response)
       console.log(response.content)
-      // window.sessionStorage.setItem('userInfo', JSON.stringify(data.value))
       router.push('/home')
     } else {
       ElNotification({
@@ -81,7 +79,43 @@ const handleSubmit = async () => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .login-box,.register-box{
-  width:360px;margin:7% auto
+  width:480px;
+  height: 480px;
+  margin:7% auto;
+  text-align: center;
+}
+
+.login-logo{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+.login-box-body {
+  height: 280px;
+  border: solid 1px rgb(105, 104, 104) ;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.form-group{
+  margin-bottom:15px
+}
+
+.form-control {
+  width: 80%;
+  height: 35px;
+}
+
+.btn{
+  margin-top: 10px;
+  width: 110px;
+  height: 40px;
+}
+
+.checkbox {
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 h3 {

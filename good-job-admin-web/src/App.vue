@@ -21,18 +21,6 @@ window.addEventListener('resize', () => {
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
   <myHeader v-show="store.state.isLoggedIn" style="{height: '50px', width: '100%', margin: 'auto'}"/>
   
   <div :style="{height: height - 50 + 'px', width: '100%', margin: 'auto'}">
