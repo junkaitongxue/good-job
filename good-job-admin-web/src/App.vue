@@ -4,6 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import myHeader from '@/components/myHeader.vue'
 import { reactive, provide, ref } from 'vue';
 import type { MainParameter } from './models/mainParameter';
+import store from '@/stores'
 
 const mainParameter = reactive<MainParameter>({
   theme: 'light',
@@ -32,7 +33,7 @@ window.addEventListener('resize', () => {
       </nav>
     </div>
   </header> -->
-  <myHeader style="{height: '50px', width: '100%', margin: 'auto'}"/>
+  <myHeader v-show="store.state.isLoggedIn" style="{height: '50px', width: '100%', margin: 'auto'}"/>
   
   <div :style="{height: height - 50 + 'px', width: '100%', margin: 'auto'}">
     <RouterView />
@@ -51,12 +52,6 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
 
 nav a.router-link-exact-active {
   color: var(--color-text);

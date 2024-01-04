@@ -1,7 +1,7 @@
 import store from "@/stores"
-import axios from "axios"
-import type { IResponseData } from "./axios"
+import axios, { type IResponseData } from '@/utils/axios';
 import { cookies } from "./cookies"
+import { ElNotification } from "element-plus";
 
 export default class AuthUtils {
   static async logout() {
@@ -9,6 +9,13 @@ export default class AuthUtils {
     store.dispatch('logout',)
     const response = await axios.post<IResponseData<Object>>('/logout', {})
     console.log(response)
+    if (response.code === 200) {
+      ElNotification({
+        title: '注销成功',
+        message: response.msg,
+        type: 'success'
+      })
+    }
   }
 
   static async checkLogin(): Promise<boolean> {

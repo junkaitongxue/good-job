@@ -24,11 +24,13 @@ watch(() => mainParameter.theme, (value) => {
 <template>
   <div :class="`header header-${theme}`">
     <span class="logo"><b>Good</b>-Job</span>
-    <router-link to="/" :class="getStyle('home')">首页</router-link>
-    <router-link to="/about" :class="getStyle('about')">关于</router-link>
+    <div class="routerMenu" >
+      <router-link to="/" :class="getStyle('home')">首页</router-link>
+      <router-link to="/about" :class="getStyle('about')">关于</router-link>
+    </div>
     <router-link to="/login" class="logout">
-      <span @click="logout">注销</span>
-    </router-link>
+        <span @click="logout">注销</span>
+      </router-link>
   </div>
 </template>
 
@@ -45,6 +47,11 @@ watch(() => mainParameter.theme, (value) => {
 }
 .header-dark {
   background: #e77d0b;
+}
+
+.routerMenu {
+  font-size: 12px;
+  text-align: center;
 }
 
 .logo {
