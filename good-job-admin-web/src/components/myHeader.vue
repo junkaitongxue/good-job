@@ -26,7 +26,9 @@ watch(() => mainParameter.theme, (value) => {
     <span class="logo"><b>Good</b>-Job</span>
     <div class="routerMenu" >
       <router-link to="/" :class="getStyle('home')">首页</router-link>
-      <router-link to="/about" :class="getStyle('about')">关于</router-link>
+      <router-link to="/executerMgr" :class="getStyle('executerMgr')">执行器管理</router-link>
+      <router-link to="/taskMgr" :class="getStyle('taskMgr')">任务管理</router-link>
+      <router-link to="/about" :class="getStyle('about')">使用教程</router-link>
     </div>
     <router-link to="/login" class="logout">
         <span @click="logout">注销</span>

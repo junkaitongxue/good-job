@@ -23,6 +23,16 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/executerMgr',
+      name: 'executerMgr',
+      component: () => import('../views/ExecuterMgr.vue')
+    },
+    {
+      path: '/taskMgr',
+      name: 'taskMgr',
+      component: () => import('../views/TaskMgr.vue')
+    },
+    {
       path: '/login',
       component: LoginView
     }

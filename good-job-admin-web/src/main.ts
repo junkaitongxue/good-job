@@ -21,6 +21,7 @@ async function initializeApp() {
   app.use(i18n)
   app.use(store)
   app.use(VueCookies)
+  app.use(ElementPlus)
   app.mount('#app')
 
   // 进行登录验证
