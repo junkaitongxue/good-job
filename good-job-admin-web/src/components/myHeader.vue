@@ -4,6 +4,8 @@
 import type { MainParameter } from '@/models/mainParameter'
 import AuthUtils from '@/utils/AuthUtils';
 import { inject, ref, watch } from 'vue'
+import type { TabsPaneContext } from 'element-plus'
+import router from '@/router';
 
 const mainParameter = inject('mainParameter') as MainParameter
 const theme = ref(mainParameter.theme)
@@ -11,6 +13,7 @@ const getStyle = (key: string): string => {
   return mainParameter.currentSelect === key ? `menu menu-${theme.value} selected` : `menu menu-${theme.value}`
 }
 const logout = () => {
+  router.push('/login')
   AuthUtils.logout()
 }
 
@@ -18,6 +21,7 @@ watch(() => mainParameter.theme, (value) => {
   theme.value = value
 })
 
+const visible = ref(false)
 </script>
 
 <!-- eslint-disable vue/multi-word-component-names -->
@@ -30,9 +34,21 @@ watch(() => mainParameter.theme, (value) => {
       <router-link to="/taskMgr" :class="getStyle('taskMgr')">任务管理</router-link>
       <router-link to="/about" :class="getStyle('about')">使用教程</router-link>
     </div>
-    <router-link to="/login" class="logout">
-        <span @click="logout">注销</span>
-      </router-link>
+
+    <div class="logout">
+      <el-popover title="Admin">
+        <el-divider />
+        <!-- <div > -->
+          <el-button size="large" style="margin-top: 5px;margin-left: 12px; width: 90px;" type="primary" @click="logout">修改密码</el-button>
+          <el-button size="large" style="margin-top: 5px; width: 90px;" type="primary" @click="logout">注销</el-button>
+        <!-- </div> -->
+        <template #reference>
+          <el-avatar class="logout"> A </el-avatar>
+        </template>
+      </el-popover>
+    </div>
+
+
   </div>
 </template>
 
@@ -86,7 +102,7 @@ watch(() => mainParameter.theme, (value) => {
 }
 
 .logout {
-  margin: 0 40px 0px auto;
+  margin: 0 1px 0px auto;
 }
 
 </style>
