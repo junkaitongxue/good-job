@@ -1,14 +1,17 @@
 <script setup lang="ts">
 
 import type { MainParameter } from '@/models/mainParameter'
-import { inject, onMounted, ref } from 'vue'
+import { inject, onMounted, reactive, ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
+import axios, { type IResponseData } from '@/utils/axios';
+import type { ExecuterInfo } from '@/models/executerInfo';
 
 
 const mainParameter = inject('mainParameter') as MainParameter
 onMounted(() => {
   mainParameter.theme = 'light'
   mainParameter.currentSelect = 'executerMgr'
+  rearch()
 })
 const appName = ref('')
 const executerName = ref('')
@@ -17,44 +20,13 @@ const handleClick = () => {
   console.log('click')
 }
 
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Home',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Office',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Home',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Office',
-  },
-]
+let tableData = ref([])
+
+const rearch = async () => {
+  const resp = await axios.post<IResponseData<ExecuterInfo[]>>("/jobgroup/pageList", {})
+  // ref记得需要是.value才能生效！！！
+  tableData.value = resp.data as any
+}
 
 const currentPage2 = ref(5)
 const pageSize2 = ref(100)
@@ -67,6 +39,20 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
 }
+
+const dialogFormVisible = ref(false)
+const formLabelWidth = '140px'
+
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
 </script>
 
 <template>
@@ -89,25 +75,45 @@ const handleCurrentChange = (val: number) => {
         size="large"
       />
     <el-button size="large" type="success" id="newBtn">新增</el-button>
-    <el-button size="large" type="primary" id="searchBtn">搜索</el-button>
+    <el-button size="large" type="primary" id="searchBtn" @click="rearch">搜索</el-button>
   </div>
 
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="date" label="Date" width="150" />
-    <el-table-column prop="name" label="Name" width="120" />
-    <el-table-column prop="state" label="State" width="120" />
-    <el-table-column prop="city" label="City" width="120" />
-    <el-table-column prop="address" label="Address" width="600" />
-    <el-table-column prop="zip" label="Zip" width="120" />
-    <el-table-column fixed="right" label="Operations" width="120">
+    <el-table-column fixed prop="appname" label="AppName" width="650%" />
+    <el-table-column prop="title" label="名称" width="250%" />
+    <el-table-column prop="addressType" label="注册方式" width="250%" />
+    <el-table-column prop="addressList" label="Online机器地址" width="250%" />
+    <el-table-column fixed="right" label="Operations" width="250%">
       <template #default>
         <el-button link type="primary" size="small" @click="handleClick"
-          >Detail</el-button
+          >删除</el-button
         >
-        <el-button link type="primary" size="small">Edit</el-button>
+        <el-button link text type="primary" size="small" @click="dialogFormVisible = true">编辑</el-button>
       </template>
     </el-table-column>
   </el-table>
+
+  <el-dialog v-model="dialogFormVisible" title="Shipping address">
+    <el-form :model="form">
+      <el-form-item label="Promotion name" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="Zones" :label-width="formLabelWidth">
+        <el-select v-model="form.region" placeholder="Please select a zone">
+          <el-option label="Zone No.1" value="shanghai" />
+          <el-option label="Zone No.2" value="beijing" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">
+          Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 
   <el-pagination
       v-model:current-page="currentPage2"
@@ -116,7 +122,7 @@ const handleCurrentChange = (val: number) => {
       :small="small"
       :disabled="disabled"
       :background="background"
-      layout="sizes, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="1000"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"

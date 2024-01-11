@@ -29,11 +29,10 @@ async function initializeApp() {
     if (isLoggedIn) {
       // 如果已登录，挂载应用到根元素上
       ElMessage({
-        message: '已登录，为你跳转到首页',
+        message: '已登录',
         type: 'success',
       })
       store.dispatch('login', {useName: 'admin'})
-      router.push('/home')
     } else {
       ElMessage({
         message: '未登录，无法访问应用, 请登录',

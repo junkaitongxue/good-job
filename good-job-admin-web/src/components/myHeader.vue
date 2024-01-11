@@ -43,7 +43,7 @@ const visible = ref(false)
           <el-button size="large" style="margin-top: 5px; width: 90px;" type="primary" @click="logout">注销</el-button>
         <!-- </div> -->
         <template #reference>
-          <el-avatar class="logout"> A </el-avatar>
+          <el-avatar class="logout" style="background-color: black;"> A </el-avatar>
         </template>
       </el-popover>
     </div>

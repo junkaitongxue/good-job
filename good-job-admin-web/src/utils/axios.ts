@@ -4,7 +4,8 @@ import { ElMessage } from 'element-plus'
 export interface IResponseData <T> {
   code: number,
   msg ?: string,
-  content: T
+  content: T,
+  data: T
 }
 
 const defaultConfig = {
