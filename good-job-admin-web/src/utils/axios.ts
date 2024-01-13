@@ -2,6 +2,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 import { ElMessage } from 'element-plus'
 
 export interface IResponseData <T> {
+  recordsTotal: number
   code: number,
   msg ?: string,
   content: T,
