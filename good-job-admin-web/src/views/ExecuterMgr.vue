@@ -120,12 +120,14 @@ const newOnlineAddrs = ref('')
     <el-button size="large" type="primary" id="searchBtn" @click="rearch">搜索</el-button>
   </div>
 
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="appname" label="AppName" width="650%" />
-    <el-table-column prop="title" label="名称" width="250%" />
-    <el-table-column prop="addressType" label="注册方式" width="250%" />
-    <el-table-column prop="addressList" label="Online机器地址" width="250%" />
-    <el-table-column fixed="right" label="Operations" width="250%">
+  <el-table :data="tableData" stripe border style="width: 100%;">
+    <el-table-column fixed prop="appname" label="AppName" min-width="30%" />
+    <el-table-column prop="title" label="名称" min-width="20%" />
+    <el-table-column prop="addressType" label="注册方式" min-width="20%">
+      <template v-slot="scope">{{ scope.row.addressType === 1 ? '手动录入' : '自动录入' }}</template>
+    </el-table-column>
+    <el-table-column prop="addressList" label="Online机器地址" min-width="20%" />
+    <el-table-column fixed="right" label="Operations" min-width="10%">
       <template #default="scope" >
         <el-button link type="primary" size="small" @click="deleteExecuter(scope.row.id)"
           >删除</el-button
