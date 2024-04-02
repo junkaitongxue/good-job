@@ -33,6 +33,7 @@ const visible = ref(false)
       <router-link to="/executerMgr" :class="getStyle('executerMgr')">执行器管理</router-link>
       <router-link to="/taskMgr" :class="getStyle('taskMgr')">任务管理</router-link>
       <router-link to="/about" :class="getStyle('about')">使用教程</router-link>
+      <router-link to="/demo" :class="getStyle('demo')">功能demo</router-link>
     </div>
 
     <div class="logout">

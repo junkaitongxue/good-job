@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('../views/DemoView.vue')
+    },
+    {
       path: '/executerMgr',
       name: 'executerMgr',
       component: () => import('../views/ExecuterMgr.vue')
